@@ -1,0 +1,17 @@
+/home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/urdf/bipedal_urdf.xacro
+/home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/launch/display.launch.py
+/home/pa29/bipedal_project/install/bipedal_description/share/ament_index/resource_index/package_run_dependencies/bipedal_description
+/home/pa29/bipedal_project/install/bipedal_description/share/ament_index/resource_index/parent_prefix_path/bipedal_description
+/home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/environment/ament_prefix_path.sh
+/home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/environment/ament_prefix_path.dsv
+/home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/environment/path.sh
+/home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/environment/path.dsv
+/home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/local_setup.bash
+/home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/local_setup.sh
+/home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/local_setup.zsh
+/home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/local_setup.dsv
+/home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/package.dsv
+/home/pa29/bipedal_project/install/bipedal_description/share/ament_index/resource_index/packages/bipedal_description
+/home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/cmake/bipedal_descriptionConfig.cmake
+/home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/cmake/bipedal_descriptionConfig-version.cmake
+/home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/package.xml

@@ -1,0 +1,4 @@
+source;share/bipedal_description/local_setup.bash
+source;share/bipedal_description/local_setup.dsv
+source;share/bipedal_description/local_setup.sh
+source;share/bipedal_description/local_setup.zsh

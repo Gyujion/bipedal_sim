@@ -1,0 +1,43 @@
+[0.017s] Invoking command in '/home/pa29/bipedal_project/build/bipedal_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pa29/turtlebot3_ws/install/turtlebot3_teleop:/home/pa29/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake /home/pa29/bipedal_project/src/bipedal/bipedal_description -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/pa29/bipedal_project/install/bipedal_description
+[0.084s] -- The C compiler identification is GNU 11.4.0
+[0.145s] -- The CXX compiler identification is GNU 11.4.0
+[0.161s] -- Detecting C compiler ABI info
+[0.266s] -- Detecting C compiler ABI info - done
+[0.278s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.278s] -- Detecting C compile features
+[0.278s] -- Detecting C compile features - done
+[0.282s] -- Detecting CXX compiler ABI info
+[0.423s] -- Detecting CXX compiler ABI info - done
+[0.429s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.430s] -- Detecting CXX compile features
+[0.430s] -- Detecting CXX compile features - done
+[0.441s] -- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.621s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.696s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.804s] -- Configuring done
+[0.806s] -- Generating done
+[0.807s] -- Build files have been written to: /home/pa29/bipedal_project/build/bipedal_description
+[0.813s] Invoked command in '/home/pa29/bipedal_project/build/bipedal_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pa29/turtlebot3_ws/install/turtlebot3_teleop:/home/pa29/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake /home/pa29/bipedal_project/src/bipedal/bipedal_description -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/pa29/bipedal_project/install/bipedal_description
+[0.815s] Invoking command in '/home/pa29/bipedal_project/build/bipedal_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pa29/turtlebot3_ws/install/turtlebot3_teleop:/home/pa29/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --build /home/pa29/bipedal_project/build/bipedal_description -- -j24 -l24
+[0.872s] Invoked command in '/home/pa29/bipedal_project/build/bipedal_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pa29/turtlebot3_ws/install/turtlebot3_teleop:/home/pa29/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --build /home/pa29/bipedal_project/build/bipedal_description -- -j24 -l24
+[0.882s] Invoking command in '/home/pa29/bipedal_project/build/bipedal_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pa29/turtlebot3_ws/install/turtlebot3_teleop:/home/pa29/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --install /home/pa29/bipedal_project/build/bipedal_description
+[0.890s] -- Install configuration: ""
+[0.890s] -- Execute custom install script
+[0.890s] -- Symlinking: /home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/urdf/bipedal_urdf.xacro
+[0.908s] -- Symlinking: /home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/launch/display.launch.py
+[0.919s] -- Symlinking: /home/pa29/bipedal_project/install/bipedal_description/share/ament_index/resource_index/package_run_dependencies/bipedal_description
+[0.946s] -- Symlinking: /home/pa29/bipedal_project/install/bipedal_description/share/ament_index/resource_index/parent_prefix_path/bipedal_description
+[0.957s] -- Symlinking: /home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/environment/ament_prefix_path.sh
+[0.967s] -- Symlinking: /home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/environment/ament_prefix_path.dsv
+[0.976s] -- Symlinking: /home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/environment/path.sh
+[0.987s] -- Symlinking: /home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/environment/path.dsv
+[0.997s] -- Symlinking: /home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/local_setup.bash
+[1.006s] -- Symlinking: /home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/local_setup.sh
+[1.016s] -- Symlinking: /home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/local_setup.zsh
+[1.034s] -- Symlinking: /home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/local_setup.dsv
+[1.053s] -- Symlinking: /home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/package.dsv
+[1.064s] -- Symlinking: /home/pa29/bipedal_project/install/bipedal_description/share/ament_index/resource_index/packages/bipedal_description
+[1.075s] -- Symlinking: /home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/cmake/bipedal_descriptionConfig.cmake
+[1.084s] -- Symlinking: /home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/cmake/bipedal_descriptionConfig-version.cmake
+[1.094s] -- Symlinking: /home/pa29/bipedal_project/install/bipedal_description/share/bipedal_description/package.xml
+[1.106s] Invoked command in '/home/pa29/bipedal_project/build/bipedal_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pa29/turtlebot3_ws/install/turtlebot3_teleop:/home/pa29/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --install /home/pa29/bipedal_project/build/bipedal_description

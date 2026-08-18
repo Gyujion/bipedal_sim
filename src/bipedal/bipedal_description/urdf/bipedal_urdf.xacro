@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="biped_robot">
+    
+    <!--namespace-->
+    <xacro:arg name="namespace" default=""/>
+    <xacro:property name="namespace" value="$(arg namespace)"/>
+
+    <material name="red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+    </material>
+
+    <material name="blue">
+        <color rgba="0.0 0.0 1.0 1.0"/>
+    </material>
+
+    <material name="green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+    </material>
+
+    <material name="black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
+    </material>
+
+    <material name="white">
+        <color rgba="1 1 1 1"/>
+    </material>
+
+    <xacro:macro name="inertial" params="m x y z">
+        <inertial>
+            <origin xyz="{xyz}" rpy="0.0 0.0 0.0"/>
+            <mass value="${m}"/>
+            <inertia ixx="" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+        </inertial>
+        
+    </xacro:macro>
+
+    <link name="${namespace}base_footprint"/>
+    
+    <joint name="${namespace}base_joint" type="fixed">
+        <parent link="${namespace}base_footprint"/>
+        <child link="${namespace}base_link"/>
+        <origin xyz="0.0 0.0 0.7" rpy="0.0 0.0 0.0"/>
+    </joint>
+
+    <xacro:property name="width" value="0.5"/>
+    <xacro:property name="length" value="0.2"/>
+    <xacro:property name="height" value="0.2"/>
+    <link name="${namespace}base_link">
+        <visual>
+            <geometry>
+                <box size="${width} ${length} ${height}"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="${width} ${length} ${height}"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <xacro:macro name="leg" params="prefix y_reflect">
+        <!--골반과 허벅지 조인트 연결-->
+        <joint name="${prefix}_hip_joint" type="revolute">
+            <parent link="base_link"/>
+            <child link="${prefix}_thigh_link"/>
+            <origin xyz="${0.25 * y_reflect} 0.0 0" rpy="0.0 0.0 0.0"/>
+            <axis xyz="1.0 0.0 0.0"/>   
+            <limit lower="-1.5" upper="1.5" effort="100.0" velocity="3.14"/>
+        </joint>
+
+        <link name="${prefix}_thigh_link">
+            <visual name="${prefix}_thigh_link">
+                <geometry>
+                    <box size="0.1 0.2 0.4"/>
+                </geometry>
+                <material name="green"/>
+                <origin xyz="${y_reflect * 0.05} 0.0 -0.1"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <box size="0.1 0.2 0.4"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_calf_joint" type="revolute">
+            <parent link="${prefix}_thigh_link"/>
+            <child link="${prefix}_calf_link"/>
+            <origin xyz="${y_reflect * 0.05} 0.0 -0.3" rpy="0.0 0.0 0.0"/>
+            <axis xyz="1.0 0.0 0.0"/>
+            <limit lower="-1.5" upper="0.0" effort="100.0" velocity="3.14"/>
+        </joint>
+
+        <link name="${prefix}_calf_link">
+            <visual>
+                <geometry>
+                    <box size="0.1 0.2 0.3"/>
+                </geometry>
+                <material name="blue"/>
+                <origin xyz="0.0 0.0 -0.15"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <box size="0.1 0.2 0.3"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_foot_joint" type="revolute">
+            <parent link="${prefix}_calf_link"/>
+            <child link="${prefix}_foot_link"/>
+            <origin xyz="0.0 0.0 -0.3"/>
+            <limit lower="-1.5" upper="0.0" effort="100.0" velocity="3.14"/>
+        </joint>
+
+        <link name="${prefix}_foot_link">
+            <visual>
+                <geometry>
+                    <box size="0.1 0.25 0.1"/>
+                </geometry>
+                <material name="red"/>
+                <origin xyz="0.0 0.025 -0.05"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <box size="0.1 0.25 0.1"/>
+                </geometry>
+            </collision>
+        </link>
+
+    </xacro:macro>
+
+    <xacro:leg prefix="left" y_reflect="1"/>
+    <xacro:leg prefix="right" y_reflect="-1"/>
+    
+</robot>

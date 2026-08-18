@@ -1,0 +1,1 @@
+/home/pa29/bipedal_project/build/bipedal_description/ament_cmake_environment_hooks/local_setup.zsh
