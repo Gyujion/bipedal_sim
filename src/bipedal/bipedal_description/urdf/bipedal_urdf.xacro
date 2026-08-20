@@ -25,11 +25,13 @@
         <color rgba="1 1 1 1"/>
     </material>
 
-    <xacro:macro name="inertial" params="m x y z">
+    <xacro:macro name="iner" params="m o_x o_y o_z i_x i_y i_z">
         <inertial>
-            <origin xyz="{xyz}" rpy="0.0 0.0 0.0"/>
+            <origin xyz="${o_x} ${o_y} ${o_z}" rpy="0.0 0.0 0.0"/>
             <mass value="${m}"/>
-            <inertia ixx="" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+            <inertia ixx="${(m/12) * ((i_y*i_y) + (i_z*i_z))}" ixy="0.0" ixz="0.0" 
+                     iyy="${(m/12) * ((i_x*i_x) + (i_z*i_z))}" iyz="0.0" 
+                     izz="${(m/12) * ((i_x*i_x) + (i_y*i_y))}"/>
         </inertial>
         
     </xacro:macro>
@@ -57,7 +59,12 @@
                 <box size="${width} ${length} ${height}"/>
             </geometry>
         </collision>
+        <xacro:iner m="3" o_x="0" o_y="0" o_z="0" i_x="${width}" i_y="${length}" i_z="${height}"/>
     </link>
+
+    <gazebo reference="base_link">
+        <material>Gazebo/White</material>
+    </gazebo>
 
     <xacro:macro name="leg" params="prefix y_reflect">
         <!--골반과 허벅지 조인트 연결-->
@@ -66,7 +73,7 @@
             <child link="${prefix}_thigh_link"/>
             <origin xyz="${0.25 * y_reflect} 0.0 0" rpy="0.0 0.0 0.0"/>
             <axis xyz="1.0 0.0 0.0"/>   
-            <limit lower="-1.5" upper="1.5" effort="100.0" velocity="3.14"/>
+            <limit lower="-1.2" upper="1.2" effort="100.0" velocity="3.14"/>
         </joint>
 
         <link name="${prefix}_thigh_link">
@@ -81,8 +88,14 @@
                 <geometry>
                     <box size="0.1 0.2 0.4"/>
                 </geometry>
+                <origin xyz="${y_reflect * 0.05} 0.0 -0.1"/>
             </collision>
+            <xacro:iner m="3" o_x="${y_reflect * 0.05}" o_y="0.0" o_z="-0.1"
+                          i_x="0.1" i_y="0.2" i_z="0.4"/>
         </link>
+        <gazebo reference = "${prefix}_thigh_link">
+            <material>Gazebo/Green</material>
+        </gazebo>
 
         <joint name="${prefix}_calf_joint" type="revolute">
             <parent link="${prefix}_thigh_link"/>
@@ -104,8 +117,15 @@
                 <geometry>
                     <box size="0.1 0.2 0.3"/>
                 </geometry>
+                <origin xyz="0.0 0.0 -0.15"/>
             </collision>
+            <xacro:iner m="3" o_x="0" o_y="0.0" o_z="-0.15"
+                          i_x="0.1" i_y="0.2" i_z="0.3"/>
         </link>
+
+        <gazebo reference = "${prefix}_calf_link">
+            <material>Gazebo/Blue</material>
+        </gazebo>
 
         <joint name="${prefix}_foot_joint" type="revolute">
             <parent link="${prefix}_calf_link"/>
@@ -126,8 +146,15 @@
                 <geometry>
                     <box size="0.1 0.25 0.1"/>
                 </geometry>
+                <origin xyz="0.0 0.025 -0.05"/>
             </collision>
+            <xacro:iner m="3" o_x="0.0" o_y="0.025" o_z="-0.05"
+                          i_x="0.1" i_y="0.25" i_z="0.1"/>
         </link>
+
+        <gazebo reference = "${prefix}_foot_link">
+            <material>Gazebo/Red</material>
+        </gazebo>
 
     </xacro:macro>
 
