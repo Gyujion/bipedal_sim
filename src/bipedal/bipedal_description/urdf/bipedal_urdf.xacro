@@ -1,10 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="biped_robot">
     
-    <!--namespace-->
-    <xacro:arg name="namespace" default=""/>
-    <xacro:property name="namespace" value="$(arg namespace)"/>
-
     <material name="red">
         <color rgba="1.0 0.0 0.0 1.0"/>
     </material>
@@ -25,41 +21,41 @@
         <color rgba="1 1 1 1"/>
     </material>
 
-    <xacro:macro name="iner" params="m o_x o_y o_z i_x i_y i_z">
+    <xacro:macro name="iner" params="m o_x o_y o_z w h d">
         <inertial>
             <origin xyz="${o_x} ${o_y} ${o_z}" rpy="0.0 0.0 0.0"/>
             <mass value="${m}"/>
-            <inertia ixx="${(m/12) * ((i_y*i_y) + (i_z*i_z))}" ixy="0.0" ixz="0.0" 
-                     iyy="${(m/12) * ((i_x*i_x) + (i_z*i_z))}" iyz="0.0" 
-                     izz="${(m/12) * ((i_x*i_x) + (i_y*i_y))}"/>
+            <inertia ixx="${(m/12) * ((h*h) + (d*d))}" ixy="0.0" ixz="0.0" 
+                     iyy="${(m/12) * ((w*w) + (d*d))}" iyz="0.0" 
+                     izz="${(m/12) * ((w*w) + (h*h))}"/>
         </inertial>
         
     </xacro:macro>
 
-    <link name="${namespace}base_footprint"/>
+    <link name="base_footprint"/>
     
-    <joint name="${namespace}base_joint" type="fixed">
-        <parent link="${namespace}base_footprint"/>
-        <child link="${namespace}base_link"/>
+    <joint name="$base_joint" type="fixed">
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
         <origin xyz="0.0 0.0 0.7" rpy="0.0 0.0 0.0"/>
     </joint>
 
     <xacro:property name="width" value="0.5"/>
-    <xacro:property name="length" value="0.2"/>
     <xacro:property name="height" value="0.2"/>
-    <link name="${namespace}base_link">
+    <xacro:property name="depth" value="0.2"/>
+    <link name="base_link">
         <visual>
             <geometry>
-                <box size="${width} ${length} ${height}"/>
+                <box size="${width} ${height} ${depth}"/>
             </geometry>
             <material name="white"/>
         </visual>
         <collision>
             <geometry>
-                <box size="${width} ${length} ${height}"/>
+                <box size="${width} ${height} ${depth}"/>
             </geometry>
         </collision>
-        <xacro:iner m="3" o_x="0" o_y="0" o_z="0" i_x="${width}" i_y="${length}" i_z="${height}"/>
+        <xacro:iner m="2" o_x="0" o_y="0" o_z="0" w="${width}" h="${height}" d="${depth}"/>
     </link>
 
     <gazebo reference="base_link">
@@ -71,27 +67,27 @@
         <joint name="${prefix}_hip_joint" type="revolute">
             <parent link="base_link"/>
             <child link="${prefix}_thigh_link"/>
-            <origin xyz="${0.25 * y_reflect} 0.0 0" rpy="0.0 0.0 0.0"/>
-            <axis xyz="1.0 0.0 0.0"/>   
+            <origin xyz="${0.25 * y_reflect} 0.0 0" rpy="0.0 0.0 1.57075"/>
+            <axis xyz="0 1.0 0.0"/>   
             <limit lower="-1.2" upper="1.2" effort="100.0" velocity="3.14"/>
         </joint>
 
         <link name="${prefix}_thigh_link">
             <visual name="${prefix}_thigh_link">
                 <geometry>
-                    <box size="0.1 0.2 0.4"/>
+                    <box size="0.2 0.1 0.4"/>
                 </geometry>
                 <material name="green"/>
-                <origin xyz="${y_reflect * 0.05} 0.0 -0.1"/>
+                <origin xyz="0.0 ${y_reflect * -0.05} -0.1"/>
             </visual>
             <collision>
                 <geometry>
-                    <box size="0.1 0.2 0.4"/>
+                    <box size="0.2 0.1 0.4"/>
                 </geometry>
                 <origin xyz="${y_reflect * 0.05} 0.0 -0.1"/>
             </collision>
-            <xacro:iner m="3" o_x="${y_reflect * 0.05}" o_y="0.0" o_z="-0.1"
-                          i_x="0.1" i_y="0.2" i_z="0.4"/>
+            <xacro:iner m="1" o_x="0.0" o_y="${y_reflect * -0.05}" o_z="-0.1"
+                          w="0.2" h="0.1" d="0.4"/>
         </link>
         <gazebo reference = "${prefix}_thigh_link">
             <material>Gazebo/Green</material>
@@ -100,27 +96,27 @@
         <joint name="${prefix}_calf_joint" type="revolute">
             <parent link="${prefix}_thigh_link"/>
             <child link="${prefix}_calf_link"/>
-            <origin xyz="${y_reflect * 0.05} 0.0 -0.3" rpy="0.0 0.0 0.0"/>
-            <axis xyz="1.0 0.0 0.0"/>
+            <origin xyz="0.0 ${y_reflect * -0.05} -0.3" rpy="0.0 0.0 0.0"/>
+            <axis xyz="0.0 1.0 0.0"/>
             <limit lower="-1.5" upper="0.0" effort="100.0" velocity="3.14"/>
         </joint>
 
         <link name="${prefix}_calf_link">
             <visual>
                 <geometry>
-                    <box size="0.1 0.2 0.3"/>
+                    <box size="0.2 0.1 0.3"/>
                 </geometry>
                 <material name="blue"/>
                 <origin xyz="0.0 0.0 -0.15"/>
             </visual>
             <collision>
                 <geometry>
-                    <box size="0.1 0.2 0.3"/>
+                    <box size="0.2 0.1 0.3"/>
                 </geometry>
                 <origin xyz="0.0 0.0 -0.15"/>
             </collision>
-            <xacro:iner m="3" o_x="0" o_y="0.0" o_z="-0.15"
-                          i_x="0.1" i_y="0.2" i_z="0.3"/>
+            <xacro:iner m="0.6" o_x="0" o_y="0.0" o_z="-0.15"
+                          w="0.2" h="0.1" d="0.3"/>
         </link>
 
         <gazebo reference = "${prefix}_calf_link">
@@ -130,35 +126,84 @@
         <joint name="${prefix}_foot_joint" type="revolute">
             <parent link="${prefix}_calf_link"/>
             <child link="${prefix}_foot_link"/>
-            <origin xyz="0.0 0.0 -0.3"/>
+            <origin xyz="0.0 0.0 -0.3" rpy="0.0 0.0 0.0"/>
+            <axis xyz="0.0 1.0 0.0"/>
             <limit lower="-1.5" upper="0.0" effort="100.0" velocity="3.14"/>
         </joint>
 
         <link name="${prefix}_foot_link">
             <visual>
                 <geometry>
-                    <box size="0.1 0.25 0.1"/>
+                    <box size="0.25 0.2 0.1"/>
                 </geometry>
                 <material name="red"/>
-                <origin xyz="0.0 0.025 -0.05"/>
+                <origin xyz="0.0 0.0 -0.05" rpy="0.0 0.0 0.0"/>
             </visual>
             <collision>
                 <geometry>
-                    <box size="0.1 0.25 0.1"/>
+                    <box size="0.25 0.2 0.1"/>
                 </geometry>
-                <origin xyz="0.0 0.025 -0.05"/>
+                <origin xyz="0.0 0.0 -0.05"/>
             </collision>
-            <xacro:iner m="3" o_x="0.0" o_y="0.025" o_z="-0.05"
-                          i_x="0.1" i_y="0.25" i_z="0.1"/>
+            <xacro:iner m="0.2" o_x="0.0" o_y="0.0" o_z="-0.05"
+                          w="0.25" h="0.2" d="0.1"/>
         </link>
 
         <gazebo reference = "${prefix}_foot_link">
             <material>Gazebo/Red</material>
         </gazebo>
 
+        <ros2_control name="${prefix}_leg_control" type="system">
+            <hardware>
+                <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+            </hardware>
+
+            <!-- 앞서 만든 물리적 조인트의 이름을 그대로 참조 -->
+            <joint name="${prefix}_hip_joint">
+                <command_interface name="position">  <!-- 빳빳하게 세우려면 position 추천 -->
+                    <param name="min">-1.2</param>
+                    <param name="max">1.2</param>
+                </command_interface>
+                <state_interface name="position">
+                    <param name="initial_value">0.0</param> <!-- 시작할 때 기본 자세 (0도) -->
+                </state_interface>
+                <state_interface name="velocity"/>
+                <state_interface name="effort"/>
+            </joint>
+
+            <joint name="${prefix}_calf_joint">
+                <command_interface name="position">  <!-- 빳빳하게 세우려면 position 추천 -->
+                    <param name="min">-1.2</param>
+                    <param name="max">1.2</param>
+                </command_interface>
+                <state_interface name="position">
+                    <param name="initial_value">0.0</param> <!-- 시작할 때 기본 자세 (0도) -->
+                </state_interface>
+                <state_interface name="velocity"/>
+                <state_interface name="effort"/>
+            </joint>
+
+            <joint name="${prefix}_foot_joint">
+                <command_interface name="position">  <!-- 빳빳하게 세우려면 position 추천 -->
+                    <param name="min">-1.2</param>
+                    <param name="max">1.2</param>
+                </command_interface>
+                <state_interface name="position">
+                    <param name="initial_value">0.0</param> <!-- 시작할 때 기본 자세 (0도) -->
+                </state_interface>
+                <state_interface name="velocity"/>
+                <state_interface name="effort"/>
+            </joint>
+            <!-- 여기에 calf_joint, foot_joint도 같은 방식으로 추가 -->
+            <!-- <joint name="${prefix}_calf_joint"> ... </joint> -->
+
+        </ros2_control>
+
     </xacro:macro>
 
     <xacro:leg prefix="left" y_reflect="1"/>
     <xacro:leg prefix="right" y_reflect="-1"/>
     
+    
+
 </robot>
